@@ -1312,7 +1312,7 @@ if (!class_exists('GSPB_GreenShift_Settings')) {
 													<tr>
 														<th> <label for="custom_code_in_head"><?php esc_html_e("Custom code in head section", 'greenshift-animation-and-page-builder-blocks'); ?></label> </th>
 														<td>
-															<textarea name="custom_code_in_head" id="" cols="30" rows="10" style="width: 100%"><?php echo $custom_code_in_head ?></textarea>
+															<textarea name="custom_code_in_head" id="" cols="30" rows="10" style="width: 100%"><?php echo htmlentities($custom_code_in_head, ENT_QUOTES); ?></textarea>
 														</td>
 													</tr>
 													<tr>
