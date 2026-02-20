@@ -999,6 +999,9 @@ AND `group_id` = %d
 		 * @since 3.4.0
 		 */
 		$order       = apply_filters( 'action_scheduler_claim_actions_order_by', 'ORDER BY priority ASC, attempts ASC, scheduled_date_gmt ASC, action_id ASC', $claim_id, $hooks );
+		if (!preg_match('/^[a-zA-Z0-9_\s,]+$/', str_replace(['ASC', 'DESC'], '', $order))) {
+			throw new ValueError('Invalid input');
+		}
 		$skip_locked = $this->db_supports_skip_locked() ? ' SKIP LOCKED' : '';
 
 		// Selecting the action_ids that we plan to claim, while skipping any locked rows to avoid deadlocking.
