@@ -1002,6 +1002,9 @@ AND `group_id` = %d
 		$skip_locked = $this->db_supports_skip_locked() ? ' SKIP LOCKED' : '';
 
 		// Selecting the action_ids that we plan to claim, while skipping any locked rows to avoid deadlocking.
+		if (!preg_match('/^[a-zA-Z0-9_\s,]+$/', $order)) {
+			throw new \RuntimeException(__('Invalid order clause', 'action-scheduler'));
+		}
 		$select_sql = $wpdb->prepare( "SELECT action_id from {$wpdb->actionscheduler_actions} {$where} {$order} LIMIT %d FOR UPDATE{$skip_locked}", array_merge( $where_params, array( $limit ) ) );
 
 		// Now place it into an UPDATE statement by joining the result sets, allowing for the SKIP LOCKED behavior to take effect.
